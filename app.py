@@ -10,15 +10,28 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts import PromptTemplate
 
-# Initialize Groq LLM
+# Load environment variables from .env file
+load_dotenv()  # Add this to load local .env variables
+
+# Initialize Groq LLM with fallback to environment variables
 def get_llm():
+    # Check both Streamlit secrets and environment variables
+    groq_api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+    
+    if not groq_api_key:
+        st.error(
+            "GROQ_API_KEY not found. "
+            "Please set it in Streamlit secrets (for cloud) or in a .env file (locally)."
+        )
+        st.stop()
+    
     return ChatGroq(
         model="llama3-70b-8192",
         temperature=0.2,
         max_tokens=512,
         timeout=60,
         max_retries=3,
-        groq_api_key=st.secrets["GROQ_API_KEY"]
+        groq_api_key=groq_api_key  # Use the resolved key
     )
 
 # Setup vector database from PDF
