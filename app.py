@@ -21,7 +21,7 @@ def get_llm():
         max_tokens=512,
         timeout=60,
         max_retries=3,
-        groq_api_key=os.getenv("GROQ_API_KEY")
+        groq_api_key=st.secrets["GROQ_API_KEY"],
     )
 
 # Setup vector database from PDF
