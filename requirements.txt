@@ -1,0 +1,9 @@
+python-dotenv
+langchain
+langchain-community
+langchain-groq
+crewai
+crewai-tools
+faiss-cpu
+sentence-transformers
+streamlit  # Optional: if you're using it for a UI
