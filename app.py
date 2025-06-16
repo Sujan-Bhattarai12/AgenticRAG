@@ -10,9 +10,6 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts import PromptTemplate
 
-# Initialize environment variables
-load_dotenv()
-
 # Initialize Groq LLM
 def get_llm():
     return ChatGroq(
