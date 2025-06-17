@@ -1,8 +1,9 @@
 import os
+import asyncio
 import streamlit as st
 from dotenv import load_dotenv
-from langchain.vectorstores import FAISS
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.vectorstores import FAISS
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_groq import ChatGroq
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -10,10 +11,16 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.prompts import PromptTemplate
 
-# Load environment variables from .env file
-load_dotenv()  # Add this to load local .env variables
+# Fixed event loop initialization
+try:
+    asyncio.get_event_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
 
-# Initialize Groq LLM with fallback to environment variables
+# Load environment variables
+load_dotenv()
+
+# Initialize Groq LLM with fallback
 def get_llm():
     # Check both Streamlit secrets and environment variables
     groq_api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
@@ -31,8 +38,9 @@ def get_llm():
         max_tokens=512,
         timeout=60,
         max_retries=3,
-        groq_api_key=groq_api_key  # Use the resolved key
+        groq_api_key=groq_api_key
     )
+
 
 # Setup vector database from PDF
 @st.cache_resource(show_spinner="Processing document...")
@@ -73,10 +81,10 @@ def generate_answer(vector_db, query):
     Current Question: {question}
 
     Guidelines:
-    1. Answer concisely (max 3 sentences)
+    1. Answer concisely (max 8 sentences)
     2. Maintain context from previous questions
     3. If information isn't in document, say "I don't have that information"
-    4. For NEPA-related questions, reference specific sections when possible
+    4. For policy related questions, reference specific sections when possible
     5. Use natural language that flows in conversation
     
     Helpful Answer:"""
