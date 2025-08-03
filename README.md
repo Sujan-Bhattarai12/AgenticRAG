@@ -8,7 +8,7 @@ It is designed to:
 - If not, search and scrape the web using specialized agents
 - Generate a final, human-like response using powerful LLMs like **LLaMA 3 (70B)** and **Gemini Flash**
 
-## 🚀 Features
+## Features
 - 📄 **PDF Parsing**: Parses and chunks PDFs using `langchain` and FAISS for semantic search  
 - 🤖 **LLM Reasoning**: Uses LLaMA 3 and Gemini to decide whether local documents are sufficient  
 - 🌐 **Web Agents**: Leverages `CrewAI` agents for:
@@ -17,10 +17,10 @@ It is designed to:
 - 📚 **Hybrid Knowledge Flow**:
   - Uses local documents *if possible*
   - Falls back to web scraping if needed
-- ✅ Fully functional end-to-end pipeline with a working example on *Chitwan National Park travel info*
+- Fully functional end-to-end pipeline with a working example on *Chitwan National Park travel info*
 
 ---
-## 🧩 Technologies Used
+## Technologies Used
 
 - `langchain`, `FAISS`, `ChatGroq`, `CrewAI`
 - LLMs: **LLaMA3-70B** (via Groq) & **Gemini Flash**
@@ -29,7 +29,7 @@ It is designed to:
 - Web scraping: `ScrapeWebsiteTool`
 - Environment variables managed via `.env`
 - 
-## 📦 How to Run
+## How to Run
 
 1. Clone the repository and install requirements:
    ```bash
