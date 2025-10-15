@@ -27,8 +27,3 @@ It is designed to:
 - Web search: `SerperDevTool`  
 - Web scraping: `ScrapeWebsiteTool`
 - Environment variables managed via `.env`
-  
-## How to Run
-1. Clone the repository and install requirements:
-   ```bash
-   pip install -r requirements.txt
